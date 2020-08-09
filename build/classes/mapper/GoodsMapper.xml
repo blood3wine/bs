@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+                           "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.GoodsMapper">
+
+  <select id="getGoods" resultType="Goods" >
+   select * from Goods where name like "%"#{name,jdbcType=VARCHAR}"%";
+ </select>
+ <insert id="insertGoods" parameterType="Goods">
+   insert into Goods(name,price,bz) 
+   			values(#{name},#{price},#{bz})
+ </insert>
+ 
+ <delete id="deleteGoods" parameterType="int" >
+          delete  from  Goods where id in (#{id})
+		
+  </delete> 
+  <!-- 自增id删除后位置还是留着 暂时的解决方法是删了重设id 但是这俩语句放delete里会出错
+        ALTER  TABLE  Goods DROP `id`
+		ALTER  TABLE  Goods ADD id mediumint(6) PRIMARY KEY NOT NULL AUTO_INCREMENT FIRST;
+		-->
+</mapper>
